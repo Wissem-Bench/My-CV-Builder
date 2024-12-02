@@ -1,13 +1,39 @@
-// import { useState } from "react";
-import Header from "./components/Header";
+import React, { useState } from "react";
+import GlobalStyles from "./GlobalStyles";
+import PersonalInfoForm from "./components/PersonalInfoForm/PersonalInfoForm";
+import ExperienceForm from "./components/ExperienceForm/ExperienceForm";
+import PreviewSection from "./components/PreviewSection/PreviewSection";
+import {
+  PageContainer,
+  FormSection,
+  PreviewSection as StyledPreviewSection,
+} from "./App.styles";
 
-function App() {
+const App = () => {
+  const [personalInfo, setPersonalInfo] = useState(null);
+  const [experiences, setExperiences] = useState([]);
+
+  const handleSavePersonalInfo = (data) => setPersonalInfo(data);
+
+  const handleSaveExperience = (data) => setExperiences(data);
+
   return (
-    <div>
-      <Header />
-      <p>Commencez à créer votre CV interactif ici !</p>
-    </div>
+    <>
+      <GlobalStyles />
+      <PageContainer>
+        <FormSection>
+          <PersonalInfoForm onSave={handleSavePersonalInfo} />
+          <ExperienceForm onSave={handleSaveExperience} />
+        </FormSection>
+        <StyledPreviewSection>
+          <PreviewSection
+            personalInfo={personalInfo}
+            experiences={experiences}
+          />
+        </StyledPreviewSection>
+      </PageContainer>
+    </>
   );
-}
+};
 
 export default App;
